@@ -1,0 +1,4 @@
+1. Signup
+2. Login
+3. Profile
+4. Mainpage/chatroom
