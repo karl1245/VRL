@@ -1,0 +1,65 @@
+.App {
+  text-align: center;
+}
+
+.login {
+  background: greenyellow;
+  border-radius: 20px;
+  align-self: center;
+  width: 50%;
+  margin: 0 auto;
+}
+
+@media screen and (max-width: 400px) {
+  .login {
+    background: greenyellow;
+    border-radius: 20px;
+    align-self: center;
+    width: 100%;
+  }
+}
+
+.login h1{
+  color: green;
+  display: block;
+}
+
+.input-group{
+  margin: 0 auto;
+  padding-bottom: 20px; 
+}
+
+.input-group-item{
+  padding: 15px 0px 0px;
+}
+
+.input-group-item input{
+  text-align: center;
+  height: 20px;
+  border-radius: 10px;
+  padding: 0px 10px 0px 10px;
+  -webkit-transition: all 500ms ease-in;
+  transition: all 500ms ease-in;
+}
+
+.input-group-item input:focus{
+  height: 40px;
+  border-radius: 20px;
+  outline-width: 0px;
+}
+
+.input-group-item button{
+  text-align: center;
+  height: 40px;
+  width: 30%;
+  background: green;
+  border-radius: 20px;
+  margin: 0px 10px 0px 10px;
+  -webkit-transition: all 500ms ease-in;
+  transition: all 500ms ease-in;
+}
+
+.input-group-item button:active{
+  height: 20px;
+
+}
