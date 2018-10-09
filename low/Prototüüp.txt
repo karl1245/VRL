@@ -1,0 +1,6 @@
+1. Signup
+2. Login
+3. Profile
+4. Mainpage/chatroom
+
+view prototype from url: https://marvelapp.com/770j348/screen/47713559
