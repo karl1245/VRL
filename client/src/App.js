@@ -1,78 +1,83 @@
 import React, { Component } from "react";
-import "./App.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './App.css'
+import { Login } from "./views/Login/Login";
+import { Signup } from "./views/Signup/Signup";
+import { Home } from "./views/Home/Home";
+import { BrowserRouter, Route, Link, Redirect, Switch } from "react-router-dom";
 
-class App extends Component {
+export class App extends Component {
+  componentDidMount() {
+  }
+  componentWillReceiveProps(nextProps) {
+    console.log(nextProps, "asdas");
+  }
   state = {
-    username: "",
-    password: "",
+    isLoggedIn: false
   };
-  
-  constructor(){
-    super();
-    this.submit = this.submit.bind(this);
-    console.log();
-    
-  }
 
-  handleUsernameChange(e){
-    this.setState({username: e.target.value})
-  }
-
-  handlePasswordChange(e){
-    this.setState({password: e.target.value})
-  }
-
-  submit(event) {
-    event.preventDefault();
-    let {username, password} = this.state;
-    console.log(username)
-    return fetch('/api/login', {
-      method: 'POST',
+  logout = () => {
+    fetch("/logout", {
+      method: "POST",
       headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        username: username,
-        password: password
-        })
-    }).then((res)=>{
-      fetch('/home', {
-        method: 'GET',
-      }).then((r)=>{
-        var s = r.body.getReader();
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      }
+    }).then(res => {
+      res.json().then(res => {
+        window.location.reload();
+      });
+    });
+  };
 
-        console.log(s.read());
-        return r.body;
-        
-      })
-    }
-    )
+  setLogin(bool) {
+    this.setState({isLoggedIn: bool});
   }
 
   render() {
+    const user = (
+      <ul className="navbar-nav mr-auto">
+        <li className="nav-item">
+          <Link className="btn btn-outline-success my-2 my-sm-0" to="/home">Home</Link>
+        </li>
+        <li className="nav-item">
+          <Link className="btn btn-outline-success my-2 my-sm-0" onClick={this.logout} to="/login">Log out</Link>
+        </li>
+      </ul>
+    );
+    const quest = (
+      <ul className="navbar-nav mr-auto">
+        <li className="nav-item">
+          <Link className="btn btn-outline-success my-2 my-sm-0" to="/login">Log In</Link>
+        </li>
+        <li className="nav-item">
+          <Link className="btn btn-outline-success my-2 my-sm-0" to="/signup">Sign Up</Link>
+        </li>
+      </ul>
+    );
     return (
-      <div className="App">
-            <div className="login">
-              <h1>Login page</h1>
-              <form method="post">
-                <div className="input-group">
-                  <div className="input-group-item" >
-                    <input id="username" type="text" placeholder="Username" name="username" value={this.state.username} onChange={this.handleUsernameChange.bind(this)}/>
-                  </div>
-                  <div className="input-group-item" >
-                    <input id="password" type="password" placeholder="Password" name="password" value={this.state.password} onChange={this.handlePasswordChange.bind(this)}/>
-                  </div>
-                </div>
-              </form>
-              <div className="input-group-item" >
-                    <button type="submit" onClick={this.submit.bind(this)}>Log in</button>
-                    <button>Sign up</button>
-                  </div>
-            </div>
+      <BrowserRouter>
+        <div className="head">
+          <header>
+            <nav className="navbar navbar-expand-lg navbar-light bg-light" >
+              <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span className="navbar-toggler-icon"></span>
+              </button>
+              <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                {this.state.isLoggedIn ? user : quest}
+              </div>
+            </nav>
+          </header>
+          <div>
+          <Switch>
+            <Redirect exact from="/" to="/login" />
+            <Route path="/login" exact render={(props) => (<Login {...props} setLogin={this.setLogin.bind(this)} />)}/>
+            <Route path="/signup" exact render={(props) => (<Signup {...props} setLogin={this.setLogin.bind(this)} />)}/>
+            <Route path="/home" exact render={(props) => (<Home {...props} setLogin={this.setLogin.bind(this)} />)}/>
+            </Switch>
+          </div>
         </div>
+      </BrowserRouter>
     );
   }
 }
-
-export default App;
