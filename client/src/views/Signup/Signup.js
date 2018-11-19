@@ -4,7 +4,7 @@ export class Signup extends Component {
   signup = event => {
     event.preventDefault();
     let { username, password } = this.refs;
-    return fetch("/signup", {
+    return fetch("/api/signup", {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -15,7 +15,7 @@ export class Signup extends Component {
         password: password.value
       })
     }).then(res => {
-      if (res.status == 200) {
+      if (res.status === 200) {
       }
     });
   };
@@ -30,8 +30,15 @@ export class Signup extends Component {
           height="72"
         />
         <h1 className="">Obsecure Beach</h1>
-        <p>Let's sign you up for our nextgen chat application</p>
-        <span>Choose an username</span>
+        <p>
+          {" "}
+          {this.props.keel
+            ? "Let's sign you up for our nextgen chat application"
+            : "Saad teha kasutaja meie uute veebirakendusse"}
+        </p>
+        <span>
+          {this.props.keel ? "Choose an username" : "Vali kasutajanimi"}
+        </span>
         <input
           className="form-control"
           ref="username"
@@ -40,7 +47,11 @@ export class Signup extends Component {
           placeholder="Username"
           name="username"
         />
-        <span>Choose a password for your account</span>
+        <span>
+          {this.props.keel
+            ? "Choose a password for your account"
+            : "Sisesta salasõna enda kasutaja jaoks"}
+        </span>
         <input
           className="form-control"
           ref="password"
@@ -55,7 +66,7 @@ export class Signup extends Component {
             type="submit"
             className="btn btn-lg btn-primary btn-block"
           >
-            Sign up
+            {this.props.keel ? "Sign up" : "Liitu"}
           </button>
         </div>
       </form>
