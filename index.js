@@ -30,8 +30,7 @@ const Oauthclient = new OAuth2Client(OAUTHCID);
 
 const client = new Client({
   connectionString:
-    process.env.DATABASE_URL ||
-    "postgres://rqbnxajarbxirr:f9740610fcc4611b8d3ebecb745d3e72bb98f0d809ad5780e496dc080e296ea5@ec2-54-83-4-76.compute-1.amazonaws.com:5432/d83i9cuh2rvb1s",
+    process.env.DATABASE_URL,
   ssl: true
 });
 
